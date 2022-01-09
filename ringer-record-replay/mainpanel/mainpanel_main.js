@@ -1777,7 +1777,8 @@ chrome.runtime.onConnect.addListener(function(port) {
   ports.connectPort(new Port(port));
 });
 
-chrome.tabs.getCurrent(function(curTab) {
+chrome.tabs.query({ currentWindow: true, active: true }, function(tabs) {
+  let curTab = tabs[0];
   var tabId = curTab.id;
   chrome.tabs.onActivated.addListener(function _handleTabGetCurrent(activeInfo) {
     if (activeInfo.tabId != tabId)
